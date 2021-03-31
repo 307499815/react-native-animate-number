@@ -26,7 +26,8 @@ export default class AnimateNumber extends Component {
     onProgress : () => {},
     onFinish : () => {},
     startAt? : number,
-    initialValue? : number
+    initialValue? : number,
+    animated? : boolean,
   };
 
   static defaultProps = {
@@ -35,6 +36,7 @@ export default class AnimateNumber extends Component {
     steps : 45,
     value : 0,
     initialValue : 0,
+    animated:true,
     formatter : (val) => val,
     onFinish : () => {}
   };
@@ -103,7 +105,7 @@ export default class AnimateNumber extends Component {
 
     // check if start an animation
     if(this.props.value !== nextProps.value) {
-      this.startFrom = this.props.value
+      this.startFrom = this.props.animated === false ? nextProps.value : this.props.value;
       this.endWith = nextProps.value
       this.dirty = true
       this.startAnimate()
